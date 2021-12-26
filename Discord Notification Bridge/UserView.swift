@@ -176,7 +176,7 @@ struct UserSettingsView: View {
                     Button {
                         self.user!.settings.contact = nil
                     } label: {
-                        Text("Remove Associated Contact")
+                        Text("Remove Associated Contact").foregroundColor(.red)
                     }
                 }
             }
