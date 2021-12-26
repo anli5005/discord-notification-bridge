@@ -1,0 +1,567 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		891945552777CFD1008DF378 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891945542777CFD1008DF378 /* UserSettings.swift */; };
+		891945562777D377008DF378 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891945542777CFD1008DF378 /* UserSettings.swift */; };
+		891945582777D6EF008DF378 /* UserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891945572777D6EF008DF378 /* UserView.swift */; };
+		8919455E2777E3B6008DF378 /* Contacts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8919455C2777E3B6008DF378 /* Contacts.framework */; };
+		8919455F2777E3B6008DF378 /* ContactsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8919455D2777E3B6008DF378 /* ContactsUI.framework */; };
+		891945602777E4E5008DF378 /* ContactPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891945592777E252008DF378 /* ContactPicker.swift */; };
+		891945622777F042008DF378 /* PluralKitIntegration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891945612777F042008DF378 /* PluralKitIntegration.swift */; };
+		89A50D1D2777AAB900A853A5 /* Discord_Notification_BridgeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A50D1C2777AAB900A853A5 /* Discord_Notification_BridgeApp.swift */; };
+		89A50D1F2777AAB900A853A5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A50D1E2777AAB900A853A5 /* ContentView.swift */; };
+		89A50D212777AABA00A853A5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 89A50D202777AABA00A853A5 /* Assets.xcassets */; };
+		89A50D242777AABA00A853A5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 89A50D232777AABA00A853A5 /* Preview Assets.xcassets */; };
+		89A50D2B2777AAD400A853A5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A50D2A2777AAD400A853A5 /* AppDelegate.swift */; };
+		89A50D342777B6D700A853A5 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A50D332777B6D700A853A5 /* NotificationService.swift */; };
+		89A50D382777B6D700A853A5 /* Bridge Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 89A50D312777B6D700A853A5 /* Bridge Extension.appex */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		89A50D362777B6D700A853A5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 89A50D112777AAB900A853A5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 89A50D302777B6D700A853A5;
+			remoteInfo = "Bridge Extension";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		89A50D3C2777B6D700A853A5 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				89A50D382777B6D700A853A5 /* Bridge Extension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		891945542777CFD1008DF378 /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
+		891945572777D6EF008DF378 /* UserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserView.swift; sourceTree = "<group>"; };
+		891945592777E252008DF378 /* ContactPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactPicker.swift; sourceTree = "<group>"; };
+		8919455C2777E3B6008DF378 /* Contacts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Contacts.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.1.sdk/System/Library/Frameworks/Contacts.framework; sourceTree = DEVELOPER_DIR; };
+		8919455D2777E3B6008DF378 /* ContactsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ContactsUI.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.1.sdk/System/iOSSupport/System/Library/Frameworks/ContactsUI.framework; sourceTree = DEVELOPER_DIR; };
+		891945612777F042008DF378 /* PluralKitIntegration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PluralKitIntegration.swift; sourceTree = "<group>"; };
+		89A50D192777AAB900A853A5 /* Discord Notification Bridge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Discord Notification Bridge.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		89A50D1C2777AAB900A853A5 /* Discord_Notification_BridgeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Discord_Notification_BridgeApp.swift; sourceTree = "<group>"; };
+		89A50D1E2777AAB900A853A5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		89A50D202777AABA00A853A5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		89A50D232777AABA00A853A5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		89A50D2A2777AAD400A853A5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		89A50D2C2777ACA800A853A5 /* Discord Notification Bridge.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Discord Notification Bridge.entitlements"; sourceTree = "<group>"; };
+		89A50D312777B6D700A853A5 /* Bridge Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Bridge Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		89A50D332777B6D700A853A5 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		89A50D352777B6D700A853A5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		89A50D3D2777BE6500A853A5 /* Discord-Notification-Bridge-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Discord-Notification-Bridge-Info.plist"; sourceTree = SOURCE_ROOT; };
+		89A50D3E2777C6E200A853A5 /* Bridge Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Bridge Extension.entitlements"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		89A50D162777AAB900A853A5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8919455E2777E3B6008DF378 /* Contacts.framework in Frameworks */,
+				8919455F2777E3B6008DF378 /* ContactsUI.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		89A50D2E2777B6D700A853A5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		891945532777CF7D008DF378 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				891945542777CFD1008DF378 /* UserSettings.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		8919455B2777E3B6008DF378 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8919455C2777E3B6008DF378 /* Contacts.framework */,
+				8919455D2777E3B6008DF378 /* ContactsUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		89A50D102777AAB900A853A5 = {
+			isa = PBXGroup;
+			children = (
+				89A50D1B2777AAB900A853A5 /* Discord Notification Bridge */,
+				891945532777CF7D008DF378 /* Shared */,
+				89A50D322777B6D700A853A5 /* Bridge Extension */,
+				89A50D1A2777AAB900A853A5 /* Products */,
+				8919455B2777E3B6008DF378 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		89A50D1A2777AAB900A853A5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				89A50D192777AAB900A853A5 /* Discord Notification Bridge.app */,
+				89A50D312777B6D700A853A5 /* Bridge Extension.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		89A50D1B2777AAB900A853A5 /* Discord Notification Bridge */ = {
+			isa = PBXGroup;
+			children = (
+				89A50D3D2777BE6500A853A5 /* Discord-Notification-Bridge-Info.plist */,
+				89A50D2C2777ACA800A853A5 /* Discord Notification Bridge.entitlements */,
+				89A50D1C2777AAB900A853A5 /* Discord_Notification_BridgeApp.swift */,
+				89A50D2A2777AAD400A853A5 /* AppDelegate.swift */,
+				89A50D1E2777AAB900A853A5 /* ContentView.swift */,
+				891945572777D6EF008DF378 /* UserView.swift */,
+				891945592777E252008DF378 /* ContactPicker.swift */,
+				89A50D202777AABA00A853A5 /* Assets.xcassets */,
+				89A50D222777AABA00A853A5 /* Preview Content */,
+			);
+			path = "Discord Notification Bridge";
+			sourceTree = "<group>";
+		};
+		89A50D222777AABA00A853A5 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				89A50D232777AABA00A853A5 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		89A50D322777B6D700A853A5 /* Bridge Extension */ = {
+			isa = PBXGroup;
+			children = (
+				89A50D3E2777C6E200A853A5 /* Bridge Extension.entitlements */,
+				89A50D332777B6D700A853A5 /* NotificationService.swift */,
+				891945612777F042008DF378 /* PluralKitIntegration.swift */,
+				89A50D352777B6D700A853A5 /* Info.plist */,
+			);
+			path = "Bridge Extension";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		89A50D182777AAB900A853A5 /* Discord Notification Bridge */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 89A50D272777AABA00A853A5 /* Build configuration list for PBXNativeTarget "Discord Notification Bridge" */;
+			buildPhases = (
+				89A50D152777AAB900A853A5 /* Sources */,
+				89A50D162777AAB900A853A5 /* Frameworks */,
+				89A50D172777AAB900A853A5 /* Resources */,
+				89A50D3C2777B6D700A853A5 /* Embed App Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				89A50D372777B6D700A853A5 /* PBXTargetDependency */,
+			);
+			name = "Discord Notification Bridge";
+			productName = "Discord Notification Bridge";
+			productReference = 89A50D192777AAB900A853A5 /* Discord Notification Bridge.app */;
+			productType = "com.apple.product-type.application";
+		};
+		89A50D302777B6D700A853A5 /* Bridge Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 89A50D392777B6D700A853A5 /* Build configuration list for PBXNativeTarget "Bridge Extension" */;
+			buildPhases = (
+				89A50D2D2777B6D700A853A5 /* Sources */,
+				89A50D2E2777B6D700A853A5 /* Frameworks */,
+				89A50D2F2777B6D700A853A5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Bridge Extension";
+			productName = "Bridge Extension";
+			productReference = 89A50D312777B6D700A853A5 /* Bridge Extension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		89A50D112777AAB900A853A5 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1320;
+				LastUpgradeCheck = 1320;
+				TargetAttributes = {
+					89A50D182777AAB900A853A5 = {
+						CreatedOnToolsVersion = 13.2;
+					};
+					89A50D302777B6D700A853A5 = {
+						CreatedOnToolsVersion = 13.2;
+					};
+				};
+			};
+			buildConfigurationList = 89A50D142777AAB900A853A5 /* Build configuration list for PBXProject "Discord Notification Bridge" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 89A50D102777AAB900A853A5;
+			productRefGroup = 89A50D1A2777AAB900A853A5 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				89A50D182777AAB900A853A5 /* Discord Notification Bridge */,
+				89A50D302777B6D700A853A5 /* Bridge Extension */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		89A50D172777AAB900A853A5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				89A50D242777AABA00A853A5 /* Preview Assets.xcassets in Resources */,
+				89A50D212777AABA00A853A5 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		89A50D2F2777B6D700A853A5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		89A50D152777AAB900A853A5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				89A50D2B2777AAD400A853A5 /* AppDelegate.swift in Sources */,
+				891945552777CFD1008DF378 /* UserSettings.swift in Sources */,
+				891945582777D6EF008DF378 /* UserView.swift in Sources */,
+				89A50D1F2777AAB900A853A5 /* ContentView.swift in Sources */,
+				891945602777E4E5008DF378 /* ContactPicker.swift in Sources */,
+				89A50D1D2777AAB900A853A5 /* Discord_Notification_BridgeApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		89A50D2D2777B6D700A853A5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				891945622777F042008DF378 /* PluralKitIntegration.swift in Sources */,
+				89A50D342777B6D700A853A5 /* NotificationService.swift in Sources */,
+				891945562777D377008DF378 /* UserSettings.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		89A50D372777B6D700A853A5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			platformFilter = ios;
+			target = 89A50D302777B6D700A853A5 /* Bridge Extension */;
+			targetProxy = 89A50D362777B6D700A853A5 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		89A50D252777AABA00A853A5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		89A50D262777AABA00A853A5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		89A50D282777AABA00A853A5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Discord Notification Bridge/Discord Notification Bridge.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Discord Notification Bridge/Preview Content\"";
+				DEVELOPMENT_TEAM = 9DDM72ZZ79;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Discord-Notification-Bridge-Info.plist";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "dev.anli.ios.Discord-Notification-Bridge";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,6";
+			};
+			name = Debug;
+		};
+		89A50D292777AABA00A853A5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Discord Notification Bridge/Discord Notification Bridge.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Discord Notification Bridge/Preview Content\"";
+				DEVELOPMENT_TEAM = 9DDM72ZZ79;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Discord-Notification-Bridge-Info.plist";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "dev.anli.ios.Discord-Notification-Bridge";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,6";
+			};
+			name = Release;
+		};
+		89A50D3A2777B6D700A853A5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "Bridge Extension/Bridge Extension.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9DDM72ZZ79;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Bridge Extension/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Bridge Extension";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "dev.anli.ios.Discord-Notification-Bridge.Bridge-Extension";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,6";
+			};
+			name = Debug;
+		};
+		89A50D3B2777B6D700A853A5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "Bridge Extension/Bridge Extension.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9DDM72ZZ79;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Bridge Extension/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Bridge Extension";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "dev.anli.ios.Discord-Notification-Bridge.Bridge-Extension";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,6";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		89A50D142777AAB900A853A5 /* Build configuration list for PBXProject "Discord Notification Bridge" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				89A50D252777AABA00A853A5 /* Debug */,
+				89A50D262777AABA00A853A5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		89A50D272777AABA00A853A5 /* Build configuration list for PBXNativeTarget "Discord Notification Bridge" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				89A50D282777AABA00A853A5 /* Debug */,
+				89A50D292777AABA00A853A5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		89A50D392777B6D700A853A5 /* Build configuration list for PBXNativeTarget "Bridge Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				89A50D3A2777B6D700A853A5 /* Debug */,
+				89A50D3B2777B6D700A853A5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 89A50D112777AAB900A853A5 /* Project object */;
+}
