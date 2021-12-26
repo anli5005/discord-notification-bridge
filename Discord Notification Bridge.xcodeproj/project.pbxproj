@@ -21,6 +21,8 @@
 		89A50D2B2777AAD400A853A5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A50D2A2777AAD400A853A5 /* AppDelegate.swift */; };
 		89A50D342777B6D700A853A5 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A50D332777B6D700A853A5 /* NotificationService.swift */; };
 		89A50D382777B6D700A853A5 /* Bridge Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 89A50D312777B6D700A853A5 /* Bridge Extension.appex */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		89C24DD0277917CC002432DD /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C24DCF277917CC002432DD /* Models.swift */; };
+		89C24DD1277917CC002432DD /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C24DCF277917CC002432DD /* Models.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +68,7 @@
 		89A50D352777B6D700A853A5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		89A50D3D2777BE6500A853A5 /* Discord-Notification-Bridge-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Discord-Notification-Bridge-Info.plist"; sourceTree = SOURCE_ROOT; };
 		89A50D3E2777C6E200A853A5 /* Bridge Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Bridge Extension.entitlements"; sourceTree = "<group>"; };
+		89C24DCF277917CC002432DD /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +95,7 @@
 			isa = PBXGroup;
 			children = (
 				891945542777CFD1008DF378 /* UserSettings.swift */,
+				89C24DCF277917CC002432DD /* Models.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -266,6 +270,7 @@
 				89A50D1F2777AAB900A853A5 /* ContentView.swift in Sources */,
 				891945602777E4E5008DF378 /* ContactPicker.swift in Sources */,
 				89A50D1D2777AAB900A853A5 /* Discord_Notification_BridgeApp.swift in Sources */,
+				89C24DD0277917CC002432DD /* Models.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -276,6 +281,7 @@
 				891945622777F042008DF378 /* PluralKitIntegration.swift in Sources */,
 				89A50D342777B6D700A853A5 /* NotificationService.swift in Sources */,
 				891945562777D377008DF378 /* UserSettings.swift in Sources */,
+				89C24DD1277917CC002432DD /* Models.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

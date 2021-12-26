@@ -9,52 +9,6 @@ import UserNotifications
 import Intents
 import UniformTypeIdentifiers
 
-struct Author: Decodable {
-    var username: String
-    var id: String
-    var discriminator: String
-    var avatar: String
-    var public_flags: Int
-}
-
-struct Member: Decodable {
-    var avatar: String?
-    var nick: String?
-}
-
-struct Attachment: Decodable {
-    var id: String
-    var width: Int?
-    var height: Int?
-    var proxy_url: String
-    var content_type: String?
-}
-
-struct Message: Decodable {
-    var tts: Bool
-    var mentions: [Author]
-    var channel_id: String
-    var author: Author
-    var member: Member?
-    var content: String
-    var guild_id: String?
-    var attachments: [Attachment]
-    var guild_name: String?
-    var channel_name: String?
-    
-    var subtitle: String? {
-        if let guild = guild_name {
-            if let channel = channel_name {
-                return "\(guild) - \(channel)"
-            } else {
-                return guild
-            }
-        }
-        
-        return channel_name
-    }
-}
-
 extension NameStyle {
     func getName(for message: Message, with settings: UserSettings, urlSession: URLSession, pluralKitCache: inout PluralKitCache) async -> String? {
         switch self {
@@ -197,7 +151,7 @@ class NotificationService: UNNotificationServiceExtension {
             suggestionType: .none
         )
         let me = INPerson(personHandle: INPersonHandle(value: "@me", type: .unknown), nameComponents: nil, displayName: nil, image: nil, contactIdentifier: nil, customIdentifier: nil, isMe: true)
-        let intent = INSendMessageIntent(recipients: [me, person], outgoingMessageType: .outgoingMessageText, content: message.content, speakableGroupName: message.subtitle.map { INSpeakableString(spokenPhrase: $0) }, conversationIdentifier: message.channel_id, serviceName: "dev.anli.ios.Discord-Notification-Bridge.discord", sender: person, attachments: nil)
+        let intent = INSendMessageIntent(recipients: message.subtitle != nil ? [me, person] : nil, outgoingMessageType: .outgoingMessageText, content: message.content, speakableGroupName: message.subtitle.map { INSpeakableString(spokenPhrase: $0) }, conversationIdentifier: message.channel_id, serviceName: "dev.anli.ios.Discord-Notification-Bridge.discord", sender: person, attachments: nil)
         if message.subtitle != nil {
             intent.setImage(image, forParameterNamed: \.speakableGroupName)
         } else {
