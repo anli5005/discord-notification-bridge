@@ -6,9 +6,10 @@
 //
 
 import Foundation
+import SQLite
 
 let groupName = "group.dev.anli.ios.dnb"
-let defaultsKey = "dnbUserSettings"
+let databaseName = "users.db"
 
 /// Yes
 enum Yes: Codable, Equatable {
@@ -67,24 +68,111 @@ struct User: Codable, Equatable {
     var settings: UserSettings
 }
 
-func readSettings() -> [String: User] {
-    let decoder = PropertyListDecoder()
-    if let dict = UserDefaults(suiteName: groupName)?.dictionary(forKey: defaultsKey) as? [String: Data] {
-        return dict.compactMapValues { data in try? decoder.decode(User.self, from: data) }
+class AvatarCache {
+    let db: Connection
+    
+    let avatars = Table("avatars")
+    let userID = Expression<String>("user_id")
+    let avatarID = Expression<String>("avatar_id")
+    let data = Expression<Data>("data")
+    let date = Expression<Date>("date")
+    
+    init(db: Connection) throws {
+        self.db = db
+        try db.run(avatars.create(ifNotExists: true) { t in
+            t.column(userID)
+            t.column(avatarID)
+            t.column(data)
+            t.column(date)
+            t.primaryKey(userID, avatarID)
+        })
     }
     
-    return [:]
+    private func getQuery(userID: String, avatarID: String) -> some SchemaType {
+        avatars.filter(self.userID == userID).filter(self.avatarID == avatarID)
+    }
+    
+    func getAvatarData(userID: String, avatarID: String) -> Data? {
+        if let row = try? db.pluck(getQuery(userID: userID, avatarID: avatarID).select(data)) {
+            return try? row.get(data)
+        } else {
+            return nil
+        }
+    }
+    
+    func getAvatarData(userID: String, avatarID: String) -> Date? {
+        if let row = try? db.pluck(getQuery(userID: userID, avatarID: avatarID).select(date)) {
+            return try? row.get(date)
+        } else {
+            return nil
+        }
+    }
+    
+    func cacheAvatar(_ data: Data, userID: String, avatarID: String, date: Date) {
+        let query = getQuery(userID: userID, avatarID: avatarID)
+        do {
+            if try db.pluck(query.select(self.userID)) != nil {
+                try db.run(query.update(self.data <- data, self.date <- date))
+            } else {
+                try db.run(avatars.insert(self.userID <- userID, self.avatarID <- avatarID, self.data <- data, self.date <- date))
+            }
+        } catch {}
+    }
+    
+    static let `default`: AvatarCache? = {
+        guard let directory = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: groupName) else {
+            return nil
+        }
+        return try? AvatarCache(db: Connection(directory.appendingPathComponent("Library").appendingPathComponent("Caches").appendingPathComponent("avatars.db").path))
+    }()
 }
 
-func writeSettings(_ settings: [String: User]) {
-    guard let defaults = UserDefaults(suiteName: groupName) else {
-        return
+class UserDatabase {
+    let db: Connection
+    
+    let users = Table("users")
+    let id = Expression<String>("id")
+    let data = Expression<Data>("data")
+    
+    init(db: Connection) throws {
+        self.db = db
+        try db.run(users.create(ifNotExists: true) { t in
+            t.column(id, primaryKey: true)
+            t.column(data)
+        })
     }
     
-    let encoder = PropertyListEncoder()
-    var newSettings = settings
-    newSettings.merge(readSettings(), uniquingKeysWith: { current, _ in current })
-    defaults.set(newSettings.compactMapValues { try? encoder.encode($0) }, forKey: defaultsKey)
+    func readSettings(for userID: String) -> User? {
+        if let row = try? db.pluck(users.filter(id == userID)) {
+            let decoder = JSONDecoder()
+            return try? decoder.decode(User.self, from: row.get(data))
+        } else {
+            return nil
+        }
+    }
+    
+    func readUsers() -> [String: User] {
+        var dict = [String: User]()
+        let decoder = JSONDecoder()
+        do {
+            for row in try db.prepare(users.select(id, data)) {
+                if let id = try? row.get(id), let user = try? decoder.decode(User.self, from: row.get(data)) {
+                    dict[id] = user
+                }
+            }
+        } catch {}
+        return dict
+    }
+    
+    func writeSettings(_ user: User, for userID: String) {
+        let encoder = JSONEncoder()
+        _ = try? db.run(users.upsert(id <- userID, data <- encoder.encode(user), onConflictOf: id))
+    }
+    
+    static let `default`: UserDatabase = {
+        let directory = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: groupName)!
+        return try! UserDatabase(db: Connection(directory.appendingPathComponent(databaseName).path))
+    }()
 }
 
 extension UserDetails: CustomStringConvertible {

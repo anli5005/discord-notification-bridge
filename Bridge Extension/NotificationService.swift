@@ -101,19 +101,16 @@ class NotificationService: UNNotificationServiceExtension {
             fatalError("process() called without bestAttemptContent")
         }
         
-        var allSettings = readSettings()
         let details = UserDetails(username: message.author.username, discriminator: message.author.discriminator, public_flags: message.author.public_flags)
         let settings: UserSettings
-        if let user = allSettings[message.author.id] {
-            if user.details != details {
-                allSettings[message.author.id]!.details = details
-                writeSettings(allSettings)
-            }
+        if let user = UserDatabase.default.readSettings(for: message.author.id) {
             settings = user.settings
+            if user.details != details {
+                UserDatabase.default.writeSettings(User(details: details, settings: settings), for: message.author.id)
+            }
         } else {
             settings = UserSettings()
-            allSettings[message.author.id] = User(details: details, settings: settings)
-            writeSettings(allSettings)
+            UserDatabase.default.writeSettings(User(details: details, settings: settings), for: message.author.id)
         }
         
         content.threadIdentifier = message.channel_id
@@ -159,7 +156,9 @@ class NotificationService: UNNotificationServiceExtension {
         }
         let interaction = INInteraction(intent: intent, response: nil)
         interaction.direction = .incoming
-        interaction.donate(completion: nil)
+        Task {
+            try? await interaction.donate()
+        }
         
         do {
             if let newContent = try content.updating(from: intent).mutableCopy() as? UNMutableNotificationContent {

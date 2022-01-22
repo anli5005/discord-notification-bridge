@@ -11,7 +11,7 @@ let decoder = JSONDecoder()
 
 struct ContentView: View {
     @ObservedObject var context = Context.shared
-    @State var userSettings: [String: User] = readSettings()
+    @State var userSettings = UserDatabase.default.readUsers()
     
     var body: some View {
         NavigationView {
@@ -20,6 +20,8 @@ struct ContentView: View {
                     ForEach(Array(userSettings).sorted(by: { $0.value.details.description < $1.value.details.description }), id: \.key) { user in
                         NavigationLink(destination: UserSettingsView(userID: user.key, user: $userSettings[user.key])) {
                             Text(user.value.details.description)
+                        }.onChange(of: userSettings[user.key]!) { settings in
+                            UserDatabase.default.writeSettings(settings, for: user.key)
                         }
                     }
                 }
@@ -32,11 +34,9 @@ struct ContentView: View {
                     }.disabled(context.token == nil)
                 }
             }.refreshable {
-                userSettings = readSettings()
+                userSettings = UserDatabase.default.readUsers()
             }.navigationBarTitle("Bridge")
-        }.navigationViewStyle(StackNavigationViewStyle()).onChange(of: userSettings, perform: { value in
-            writeSettings(userSettings)
-        })
+        }.navigationViewStyle(StackNavigationViewStyle())
     }
 }
 
