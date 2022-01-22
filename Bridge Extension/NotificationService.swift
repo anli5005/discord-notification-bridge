@@ -9,6 +9,31 @@ import UserNotifications
 import Intents
 import UniformTypeIdentifiers
 
+let avatarMaxAge: TimeInterval = 24 * 60 * 60
+
+extension Optional where WrappedType == AvatarCache {
+    func fetchAvatar(from url: URL, using urlSession: URLSession, userID: String, avatarID: String) async throws -> Data {
+        if let cache = self, let date = cache.getAvatarDate(userID: userID, avatarID: avatarID), date.timeIntervalSinceNow <= 0 && date.timeIntervalSinceNow >= -avatarMaxAge {
+            if let data = cache.getAvatarData(userID: userID, avatarID: avatarID) {
+                print("Using cache to fetch avatar")
+                return data
+            }
+        }
+        
+        do {
+            let (data, _) = try await urlSession.data(from: url, delegate: nil)
+            self?.cacheAvatar(data, userID: userID, avatarID: avatarID, date: Date())
+            return data
+        } catch let error {
+            if let data = self?.getAvatarData(userID: userID, avatarID: avatarID) {
+                return data
+            } else {
+                throw error
+            }
+        }
+    }
+}
+
 extension NameStyle {
     func getName(for message: Message, with settings: UserSettings, urlSession: URLSession, pluralKitCache: inout PluralKitCache) async -> String? {
         switch self {
@@ -52,13 +77,13 @@ extension AvatarStyle {
     func getAvatar(for message: Message, with settings: UserSettings, urlSession: URLSession, pluralKitCache: inout PluralKitCache) async -> Data? {
         switch self {
         case .avatar:
-            if let url = URL(string: "https://cdn.discordapp.com/avatars/\(message.author.id)/\(message.author.avatar).png"), let (data, _) = try? await urlSession.data(from: url, delegate: nil) {
-                return data
+            if let avatar = message.author.avatar, let url = URL(string: "https://cdn.discordapp.com/avatars/\(message.author.id)/\(avatar).png") {
+                return try? await AvatarCache.default.fetchAvatar(from: url, using: urlSession, userID: message.author.id, avatarID: avatar)
             }
             return nil
         case .serverAvatar:
-            if let avatar = message.member?.avatar, let url = URL(string: "https://cdn.discordapp.com/avatars/\(message.author.id)/\(avatar).png"), let (data, _) = try? await urlSession.data(from: url, delegate: nil) {
-                return data
+            if let avatar = message.member?.avatar, let url = URL(string: "https://cdn.discordapp.com/avatars/\(message.author.id)/\(avatar).png") {
+                return try? await AvatarCache.default.fetchAvatar(from: url, using: urlSession, userID: message.author.id, avatarID: avatar)
             }
             return nil
         case .pluralKitAvatar:
@@ -101,7 +126,7 @@ class NotificationService: UNNotificationServiceExtension {
             fatalError("process() called without bestAttemptContent")
         }
         
-        let details = UserDetails(username: message.author.username, discriminator: message.author.discriminator, public_flags: message.author.public_flags)
+        let details = UserDetails(username: message.author.username, discriminator: message.author.discriminator, public_flags: message.author.public_flags, avatar_id: message.author.avatar)
         let settings: UserSettings
         if let user = UserDatabase.default.readSettings(for: message.author.id) {
             settings = user.settings

@@ -11,7 +11,7 @@ struct Author: Decodable {
     var username: String
     var id: String
     var discriminator: String
-    var avatar: String
+    var avatar: String?
     var public_flags: Int
 }
 

@@ -61,6 +61,7 @@ struct UserDetails: Codable, Equatable {
     var username: String
     var discriminator: String
     var public_flags: Int
+    var avatar_id: String?
 }
 
 struct User: Codable, Equatable {
@@ -100,7 +101,7 @@ class AvatarCache {
         }
     }
     
-    func getAvatarData(userID: String, avatarID: String) -> Date? {
+    func getAvatarDate(userID: String, avatarID: String) -> Date? {
         if let row = try? db.pluck(getQuery(userID: userID, avatarID: avatarID).select(date)) {
             return try? row.get(date)
         } else {

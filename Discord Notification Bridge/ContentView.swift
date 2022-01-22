@@ -12,6 +12,7 @@ let decoder = JSONDecoder()
 struct ContentView: View {
     @ObservedObject var context = Context.shared
     @State var userSettings = UserDatabase.default.readUsers()
+    @State var avatars = [String: UIImage]()
     
     var body: some View {
         NavigationView {
@@ -22,6 +23,14 @@ struct ContentView: View {
                             Text(user.value.details.description)
                         }.onChange(of: userSettings[user.key]!) { settings in
                             UserDatabase.default.writeSettings(settings, for: user.key)
+                        }.onAppear {
+                            /* Task.detached(priority: .high) {
+                                if let avatar = user.value.details.avatar_id, await avatars[user.key] == nil {
+                                    if let data = await AvatarCache.default?.getAvatarData(userID: user.key, avatarID: avatar) {
+                                        avatars[user.key] = UIImage(data: data)
+                                    }
+                                }
+                            } */
                         }
                     }
                 }
