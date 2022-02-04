@@ -158,7 +158,7 @@ struct UserSettingsView: View {
                         if let contact = user.settings.contact {
                             Text(contact.displayName ?? "Selected").foregroundColor(.secondary)
                         }
-                    }
+                    }.lineLimit(1)
                 }
                 Button {
                     showingContactPicker = true
@@ -167,7 +167,13 @@ struct UserSettingsView: View {
                         Text(user.settings.contact != nil ? "Change Associated Contact" : "Add Associated Contact")
                         ContactPicker(isPresented: $showingContactPicker) { contact in
                             let formatter = CNContactFormatter()
-                            self.user?.settings.contact = Contact(identifier: contact.identifier, displayName: formatter.string(from: contact))
+                            let name: String?
+                            if contact.nickname.isEmpty {
+                                name = formatter.string(from: contact)
+                            } else {
+                                name = contact.nickname
+                            }
+                            self.user?.settings.contact = Contact(identifier: contact.identifier, displayName: name)
                             showingContactPicker = false
                         }.frame(width: 0, height: 0)
                     }

@@ -134,13 +134,24 @@ class UserDatabase {
     let users = Table("users")
     let id = Expression<String>("id")
     let data = Expression<Data>("data")
+    let date = Expression<Date?>("date")
     
     init(db: Connection) throws {
         self.db = db
-        try db.run(users.create(ifNotExists: true) { t in
-            t.column(id, primaryKey: true)
-            t.column(data)
-        })
+        if try db.scalar(users.exists) {
+            if db.userVersion == 0 {
+                try db.transaction {
+                    try db.run(users.addColumn(date))
+                    db.userVersion = 1
+                }
+            }
+        } else {
+            try db.run(users.create(ifNotExists: true) { t in
+                t.column(id, primaryKey: true)
+                t.column(data)
+                t.column(date)
+            })
+        }
     }
     
     func readSettings(for userID: String) -> User? {
@@ -167,7 +178,7 @@ class UserDatabase {
     
     func writeSettings(_ user: User, for userID: String) {
         let encoder = JSONEncoder()
-        _ = try? db.run(users.upsert(id <- userID, data <- encoder.encode(user), onConflictOf: id))
+        _ = try? db.run(users.upsert(id <- userID, data <- encoder.encode(user), date <- Date(), onConflictOf: id))
     }
     
     static let `default`: UserDatabase = {
