@@ -9,13 +9,43 @@ import SwiftUI
 
 let decoder = JSONDecoder()
 
+#if os(iOS)
+extension Image {
+    init(platformImage: UIImage) {
+        self.init(uiImage: platformImage)
+    }
+}
+
+func getImage(data: Data) -> UIImage? {
+    UIImage(data: data)
+}
+#endif
+
+#if os(macOS)
+extension Image {
+    init(platformImage: NSImage) {
+        self.init(nsImage: platformImage)
+    }
+}
+
+func getImage(data: Data) -> NSImage? {
+    NSImage(data: data)
+}
+#endif
+
 struct UserButton: View {
     var user: User
+    #if os(iOS)
     var avatar: UIImage?
+    #endif
+    
+    #if os(macOS)
+    var avatar: NSImage?
+    #endif
     
     var avatarView: some View {
         if let avatar = avatar {
-            return AnyView(Image(uiImage: avatar).resizable().scaledToFill().frame(width: 100, height: 100))
+            return AnyView(Image(platformImage: avatar).resizable().scaledToFill().frame(width: 100, height: 100))
         } else {
             return AnyView(Circle().fill(Color.primary.opacity(0.2)).frame(width: 100, height: 100))
         }
@@ -38,11 +68,20 @@ struct UserButton: View {
 struct ContentView: View {
     @ObservedObject var context = Context.shared
     @State var userSettings = UserDatabase.default.readUsers()
-    @State var avatars = [String: UIImage]()
     
+    #if os(iOS)
+    @State var avatars = [String: UIImage]()
     @MainActor func setAvatar(for id: String, to image: UIImage) {
         avatars[id] = image
     }
+    #endif
+    
+    #if os(macOS)
+    @State var avatars = [String: NSImage]()
+    @MainActor func setAvatar(for id: String, to image: NSImage) {
+        avatars[id] = image
+    }
+    #endif
     
     var body: some View {
         NavigationView {
@@ -57,7 +96,7 @@ struct ContentView: View {
                             }.onAppear {
                                 Task.detached {
                                     if let avatar = user.value.details.avatar_id, await avatars[user.key] == nil {
-                                        if let data = AvatarCache.default?.getAvatarData(userID: user.key, avatarID: avatar), let image = UIImage(data: data) {
+                                        if let data = AvatarCache.default?.getAvatarData(userID: user.key, avatarID: avatar), let image = getImage(data: data) {
                                             await setAvatar(for: user.key, to: image)
                                         }
                                     }
@@ -67,15 +106,28 @@ struct ContentView: View {
                     }.padding()
                     
                     Button {
+                        #if os(iOS)
                         UIPasteboard.general.string = context.token!.base64EncodedString()
+                        #endif
+                        
+                        #if os(macOS)
+                        NSPasteboard.general.declareTypes([.string], owner: nil)
+                        NSPasteboard.general.setString(context.token!.base64EncodedString(), forType: .string)
+                        #endif
                     } label: {
                         Text("Copy APNS Token")
                     }.disabled(context.token == nil)
                 }
             }.refreshable {
                 userSettings = UserDatabase.default.readUsers()
-            }.navigationBarTitle("Discord Bridge")
-        }.navigationViewStyle(StackNavigationViewStyle())
+            }
+            #if os(iOS)
+            .navigationBarTitle("Discord Bridge")
+            #endif
+        }
+        #if os(iOS)
+        .navigationViewStyle(StackNavigationViewStyle())
+        #endif
     }
 }
 

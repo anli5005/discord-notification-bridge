@@ -17,6 +17,8 @@ extension NameStyle: CustomStringConvertible {
             return "Custom"
         case .nickname:
             return "Nickname"
+        case .pluralKitProxiedMember:
+            return "Proxied Member"
         case .pluralKitFronters:
             return "Fronter(s)"
         case .pluralKitSystem:
@@ -32,6 +34,8 @@ extension AvatarStyle: CustomStringConvertible {
             return "Server Avatar"
         case .avatar:
             return "Avatar"
+        case .pluralKitProxiedMember:
+            return "Proxied Member"
         case .pluralKitSystemAvatar:
             return "System Avatar"
         case .pluralKitAvatar:
@@ -89,7 +93,10 @@ struct UserSettingsView: View {
                                                 }
                                             })!
                                             self.user!.settings.nameStyles[index] = .custom(name: newValue)
-                                        }).navigationBarTitle("Custom")
+                                        })
+                                        #if os(iOS)
+                                        .navigationBarTitle("Custom")
+                                        #endif
                                     } label: {
                                         HStack {
                                             Text(style.description)
@@ -121,9 +128,12 @@ struct UserSettingsView: View {
                         Section {
                             Toggle("Show Discriminator", isOn: userBinding.settings.showDiscriminator.boolBinding)
                         }
-                    }.navigationTitle("Display Name As").toolbar {
+                    }
+                    #if os(iOS)
+                    .navigationTitle("Display Name As").toolbar {
                         EditButton()
                     }
+                    #endif
                 } label: {
                     HStack {
                         Text("Display Name As")
@@ -138,9 +148,12 @@ struct UserSettingsView: View {
                         }.onMove { source, destination in
                             self.user?.settings.avatarStyles.move(fromOffsets: source, toOffset: destination)
                         }
-                    }.navigationTitle("Display Avatar As").toolbar {
+                    }
+                    #if os(iOS)
+                    .navigationTitle("Display Avatar As").toolbar {
                         EditButton()
                     }
+                    #endif
                 } label: {
                     HStack {
                         Text("Display Avatar As")
@@ -160,6 +173,7 @@ struct UserSettingsView: View {
                         }
                     }.lineLimit(1)
                 }
+                #if os(iOS)
                 Button {
                     showingContactPicker = true
                 } label: {
@@ -185,6 +199,7 @@ struct UserSettingsView: View {
                         Text("Remove Associated Contact").foregroundColor(.red)
                     }
                 }
+                #endif
             }
             
             Section("PluralKit") {
@@ -202,11 +217,11 @@ struct UserSettingsView: View {
             }
         }.navigationTitle(user.details.description).onChange(of: user.settings.pluralKitIntegration != nil, perform: { hasPluralKit in
             if hasPluralKit {
-                self.user!.settings.nameStyles.insert(contentsOf: [.pluralKitFronters, .pluralKitSystem].filter { !user.settings.nameStyles.contains($0) }, at: 0)
-                self.user!.settings.avatarStyles.insert(contentsOf: [.pluralKitAvatar, .pluralKitSystemAvatar].filter { !user.settings.avatarStyles.contains($0) }, at: 0)
+                self.user!.settings.nameStyles.insert(contentsOf: [.pluralKitProxiedMember, .pluralKitFronters, .pluralKitSystem].filter { !user.settings.nameStyles.contains($0) }, at: 0)
+                self.user!.settings.avatarStyles.insert(contentsOf: [.pluralKitProxiedMember, .pluralKitAvatar, .pluralKitSystemAvatar].filter { !user.settings.avatarStyles.contains($0) }, at: 0)
             } else {
-                self.user!.settings.nameStyles.removeAll(where: { $0 == .pluralKitFronters || $0 == .pluralKitSystem })
-                self.user!.settings.avatarStyles.removeAll(where: { $0 == .pluralKitAvatar || $0 == .pluralKitSystemAvatar })
+                self.user!.settings.nameStyles.removeAll(where: { $0 == .pluralKitFronters || $0 == .pluralKitSystem || $0 == .pluralKitProxiedMember })
+                self.user!.settings.avatarStyles.removeAll(where: { $0 == .pluralKitAvatar || $0 == .pluralKitSystemAvatar || $0 == .pluralKitProxiedMember })
             }
         }))
     }

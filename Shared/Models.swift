@@ -12,7 +12,8 @@ struct Author: Decodable {
     var id: String
     var discriminator: String
     var avatar: String?
-    var public_flags: Int
+    var public_flags: Int?
+    var bot: Bool?
 }
 
 struct Member: Decodable {
@@ -29,6 +30,7 @@ struct Attachment: Decodable {
 }
 
 struct Message: Decodable {
+    var id: String
     var tts: Bool
     var mentions: [Author]
     var channel_id: String
@@ -39,6 +41,7 @@ struct Message: Decodable {
     var attachments: [Attachment]
     var guild_name: String?
     var channel_name: String?
+    var pk: Bool?
     
     var subtitle: String? {
         if let guild = guild_name {

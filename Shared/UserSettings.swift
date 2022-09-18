@@ -8,7 +8,7 @@
 import Foundation
 import SQLite
 
-let groupName = "group.dev.anli.ios.dnb"
+let groupName = "group.dev.anli.ios.dinb"
 let databaseName = "users.db"
 
 /// Yes
@@ -21,6 +21,7 @@ enum NameStyle: Codable, Hashable {
     case username
     case custom(name: String)
     case nickname
+    case pluralKitProxiedMember
     case pluralKitFronters
     case pluralKitSystem
 }
@@ -28,6 +29,7 @@ enum NameStyle: Codable, Hashable {
 enum AvatarStyle: Codable, Hashable {
     case serverAvatar
     case avatar
+    case pluralKitProxiedMember
     case pluralKitAvatar
     case pluralKitSystemAvatar
 }
@@ -60,7 +62,7 @@ struct UserSettings: Codable, Equatable {
 struct UserDetails: Codable, Equatable {
     var username: String
     var discriminator: String
-    var public_flags: Int
+    var public_flags: Int?
     var avatar_id: String?
 }
 
@@ -138,7 +140,7 @@ class UserDatabase {
     
     init(db: Connection) throws {
         self.db = db
-        if try db.scalar(users.exists) {
+        if (try? db.scalar(users.exists)) == true {
             if db.userVersion == 0 {
                 try db.transaction {
                     try db.run(users.addColumn(date))
@@ -151,6 +153,7 @@ class UserDatabase {
                 t.column(data)
                 t.column(date)
             })
+            db.userVersion = 1
         }
     }
     

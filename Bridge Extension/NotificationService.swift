@@ -8,6 +8,7 @@
 import UserNotifications
 import Intents
 import UniformTypeIdentifiers
+import OSLog
 
 let avatarMaxAge: TimeInterval = 24 * 60 * 60
 
@@ -47,6 +48,17 @@ extension NameStyle {
             return name
         case .nickname:
             return message.member?.nick
+        case .pluralKitProxiedMember:
+            guard let pkSettings = settings.pluralKitIntegration, message.pk == true else {
+                return nil
+            }
+            
+            do {
+                return try await pluralKitCache.getSenderName(for: message.id, with: pkSettings, urlSession: urlSession)
+            } catch {
+                print(error)
+                return nil
+            }
         case .pluralKitFronters:
             guard let pkSettings = settings.pluralKitIntegration else {
                 return nil
@@ -86,6 +98,17 @@ extension AvatarStyle {
                 return try? await AvatarCache.default.fetchAvatar(from: url, using: urlSession, userID: message.author.id, avatarID: avatar)
             }
             return nil
+        case .pluralKitProxiedMember:
+            guard let pkSettings = settings.pluralKitIntegration, message.pk == true else {
+                return nil
+            }
+            
+            do {
+                return try await pluralKitCache.getSenderAvatar(for: message.id, with: pkSettings, urlSession: urlSession)
+            } catch {
+                print(error)
+                return nil
+            }
         case .pluralKitAvatar:
             guard let pkSettings = settings.pluralKitIntegration else {
                 return nil
@@ -113,7 +136,11 @@ extension AvatarStyle {
 }
 
 class NotificationService: UNNotificationServiceExtension {
-
+    override init() {
+        super.init()
+        os_log("I AM AN EXTENSTION STARTING UP 3")
+    }
+    
     var contentHandler: ((UNNotificationContent) -> Void)?
     var bestAttemptContent: UNMutableNotificationContent?
     let session: URLSession = {
@@ -138,7 +165,7 @@ class NotificationService: UNNotificationServiceExtension {
             UserDatabase.default.writeSettings(User(details: details, settings: settings), for: message.author.id)
         }
         
-        content.threadIdentifier = message.channel_id
+        content.threadIdentifier = message.guild_id ?? message.channel_id
         
         var pluralKitCache = PluralKitCache()
         
@@ -185,6 +212,7 @@ class NotificationService: UNNotificationServiceExtension {
             try? await interaction.donate()
         }
         
+        os_log("Updating notification with intent")
         do {
             if let newContent = try content.updating(from: intent).mutableCopy() as? UNMutableNotificationContent {
                 content = newContent
@@ -193,7 +221,9 @@ class NotificationService: UNNotificationServiceExtension {
         } catch let error {
             print(error)
         }
+        os_log("Done updating notification")
         
+        os_log("Fetching attachments")
         for attachment in message.attachments {
             guard let type = attachment.content_type else {
                 continue
@@ -221,6 +251,7 @@ class NotificationService: UNNotificationServiceExtension {
             }
         }
         
+        os_log("It's done")
         contentHandler(content)
     }
 
@@ -235,9 +266,7 @@ class NotificationService: UNNotificationServiceExtension {
                 contentHandler(bestAttemptContent)
                 return
             }
-            
-            print(str)
-            
+                        
             guard let data = str.data(using: .utf8) else {
                 contentHandler(bestAttemptContent)
                 return

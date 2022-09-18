@@ -6,7 +6,7 @@
 	<true/>
 	<key>com.apple.security.application-groups</key>
 	<array>
-		<string>group.dev.anli.ios.dnb</string>
+		<string>group.dev.anli.ios.dinb</string>
 	</array>
 	<key>com.apple.security.network.client</key>
 	<true/>

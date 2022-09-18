@@ -15,14 +15,14 @@
 		8919455E2777E3B6008DF378 /* Contacts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8919455C2777E3B6008DF378 /* Contacts.framework */; };
 		8919455F2777E3B6008DF378 /* ContactsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8919455D2777E3B6008DF378 /* ContactsUI.framework */; };
 		891945602777E4E5008DF378 /* ContactPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891945592777E252008DF378 /* ContactPicker.swift */; };
-		891945622777F042008DF378 /* PluralKitIntegration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891945612777F042008DF378 /* PluralKitIntegration.swift */; };
+		899FE11F284FDE4D000A75B8 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A50D332777B6D700A853A5 /* NotificationService.swift */; };
+		899FE120284FDE4D000A75B8 /* PluralKitIntegration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891945612777F042008DF378 /* PluralKitIntegration.swift */; };
 		89A50D1D2777AAB900A853A5 /* Discord_Notification_BridgeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A50D1C2777AAB900A853A5 /* Discord_Notification_BridgeApp.swift */; };
 		89A50D1F2777AAB900A853A5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A50D1E2777AAB900A853A5 /* ContentView.swift */; };
 		89A50D212777AABA00A853A5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 89A50D202777AABA00A853A5 /* Assets.xcassets */; };
 		89A50D242777AABA00A853A5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 89A50D232777AABA00A853A5 /* Preview Assets.xcassets */; };
 		89A50D2B2777AAD400A853A5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A50D2A2777AAD400A853A5 /* AppDelegate.swift */; };
-		89A50D342777B6D700A853A5 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A50D332777B6D700A853A5 /* NotificationService.swift */; };
-		89A50D382777B6D700A853A5 /* Bridge Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 89A50D312777B6D700A853A5 /* Bridge Extension.appex */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		89A50D382777B6D700A853A5 /* Bridge Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 89A50D312777B6D700A853A5 /* Bridge Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		89C24DD0277917CC002432DD /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C24DCF277917CC002432DD /* Models.swift */; };
 		89C24DD1277917CC002432DD /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C24DCF277917CC002432DD /* Models.swift */; };
 /* End PBXBuildFile section */
@@ -58,7 +58,7 @@
 		8919455C2777E3B6008DF378 /* Contacts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Contacts.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.1.sdk/System/Library/Frameworks/Contacts.framework; sourceTree = DEVELOPER_DIR; };
 		8919455D2777E3B6008DF378 /* ContactsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ContactsUI.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.1.sdk/System/iOSSupport/System/Library/Frameworks/ContactsUI.framework; sourceTree = DEVELOPER_DIR; };
 		891945612777F042008DF378 /* PluralKitIntegration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PluralKitIntegration.swift; sourceTree = "<group>"; };
-		89A50D192777AAB900A853A5 /* Discord Notification Bridge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Discord Notification Bridge.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		89A50D192777AAB900A853A5 /* D.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = D.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		89A50D1C2777AAB900A853A5 /* Discord_Notification_BridgeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Discord_Notification_BridgeApp.swift; sourceTree = "<group>"; };
 		89A50D1E2777AAB900A853A5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		89A50D202777AABA00A853A5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -127,7 +127,7 @@
 		89A50D1A2777AAB900A853A5 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				89A50D192777AAB900A853A5 /* Discord Notification Bridge.app */,
+				89A50D192777AAB900A853A5 /* D.app */,
 				89A50D312777B6D700A853A5 /* Bridge Extension.appex */,
 			);
 			name = Products;
@@ -171,9 +171,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		89A50D182777AAB900A853A5 /* Discord Notification Bridge */ = {
+		89A50D182777AAB900A853A5 /* D */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 89A50D272777AABA00A853A5 /* Build configuration list for PBXNativeTarget "Discord Notification Bridge" */;
+			buildConfigurationList = 89A50D272777AABA00A853A5 /* Build configuration list for PBXNativeTarget "D" */;
 			buildPhases = (
 				89A50D152777AAB900A853A5 /* Sources */,
 				89A50D162777AAB900A853A5 /* Frameworks */,
@@ -185,12 +185,12 @@
 			dependencies = (
 				89A50D372777B6D700A853A5 /* PBXTargetDependency */,
 			);
-			name = "Discord Notification Bridge";
+			name = D;
 			packageProductDependencies = (
 				890F0FC2279BC8FF00497C42 /* SQLite */,
 			);
 			productName = "Discord Notification Bridge";
-			productReference = 89A50D192777AAB900A853A5 /* Discord Notification Bridge.app */;
+			productReference = 89A50D192777AAB900A853A5 /* D.app */;
 			productType = "com.apple.product-type.application";
 		};
 		89A50D302777B6D700A853A5 /* Bridge Extension */ = {
@@ -220,7 +220,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1320;
+				LastSwiftUpdateCheck = 1400;
 				LastUpgradeCheck = 1320;
 				TargetAttributes = {
 					89A50D182777AAB900A853A5 = {
@@ -247,7 +247,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				89A50D182777AAB900A853A5 /* Discord Notification Bridge */,
+				89A50D182777AAB900A853A5 /* D */,
 				89A50D302777B6D700A853A5 /* Bridge Extension */,
 			);
 		};
@@ -291,9 +291,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				891945622777F042008DF378 /* PluralKitIntegration.swift in Sources */,
-				89A50D342777B6D700A853A5 /* NotificationService.swift in Sources */,
 				891945562777D377008DF378 /* UserSettings.swift in Sources */,
+				899FE120284FDE4D000A75B8 /* PluralKitIntegration.swift in Sources */,
+				899FE11F284FDE4D000A75B8 /* NotificationService.swift in Sources */,
 				89C24DD1277917CC002432DD /* Models.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -303,7 +303,6 @@
 /* Begin PBXTargetDependency section */
 		89A50D372777B6D700A853A5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			platformFilter = ios;
 			target = 89A50D302777B6D700A853A5 /* Bridge Extension */;
 			targetProxy = 89A50D362777B6D700A853A5 /* PBXContainerItemProxy */;
 		};
@@ -436,7 +435,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Discord Notification Bridge/Preview Content\"";
-				DEVELOPMENT_TEAM = 9DDM72ZZ79;
+				DEVELOPMENT_TEAM = 9G475R3MEF;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Discord-Notification-Bridge-Info.plist";
@@ -450,10 +449,11 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "dev.anli.ios.Discord-Notification-Bridge";
+				PRODUCT_BUNDLE_IDENTIFIER = dev.anli.ios.dinb;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -470,7 +470,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Discord Notification Bridge/Preview Content\"";
-				DEVELOPMENT_TEAM = 9DDM72ZZ79;
+				DEVELOPMENT_TEAM = 9G475R3MEF;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Discord-Notification-Bridge-Info.plist";
@@ -484,10 +484,11 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "dev.anli.ios.Discord-Notification-Bridge";
+				PRODUCT_BUNDLE_IDENTIFIER = dev.anli.ios.dinb;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -500,7 +501,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Bridge Extension/Bridge Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 9DDM72ZZ79;
+				DEVELOPMENT_TEAM = 9G475R3MEF;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Bridge Extension/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Bridge Extension";
@@ -511,10 +512,10 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "dev.anli.ios.Discord-Notification-Bridge.Bridge-Extension";
+				PRODUCT_BUNDLE_IDENTIFIER = dev.anli.ios.dinb.bridgeex;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MACCATALYST = YES;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -528,7 +529,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Bridge Extension/Bridge Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 9DDM72ZZ79;
+				DEVELOPMENT_TEAM = 9G475R3MEF;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Bridge Extension/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Bridge Extension";
@@ -539,10 +540,10 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "dev.anli.ios.Discord-Notification-Bridge.Bridge-Extension";
+				PRODUCT_BUNDLE_IDENTIFIER = dev.anli.ios.dinb.bridgeex;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MACCATALYST = YES;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -562,7 +563,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		89A50D272777AABA00A853A5 /* Build configuration list for PBXNativeTarget "Discord Notification Bridge" */ = {
+		89A50D272777AABA00A853A5 /* Build configuration list for PBXNativeTarget "D" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				89A50D282777AABA00A853A5 /* Debug */,

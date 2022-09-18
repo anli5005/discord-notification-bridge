@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+
+#if os(iOS)
 import UIKit
 import ContactsUI
 
@@ -55,3 +57,4 @@ struct ContactPicker: UIViewControllerRepresentable {
         }
     }
 }
+#endif

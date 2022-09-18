@@ -22,6 +22,11 @@ struct PluralKitMember: Decodable {
     var avatar_url: String?
 }
 
+struct PluralKitMessage: Decodable {
+    var system: PluralKitSystem?
+    var member: PluralKitMember?
+}
+
 enum PluralKitError: Error {
     case badURL
 }
@@ -29,6 +34,21 @@ enum PluralKitError: Error {
 struct PluralKitCache {
     var fronters: PluralKitFronters?
     var system: PluralKitSystem?
+    var message: PluralKitMessage?
+    
+    mutating func getMessage(for messageID: String, urlSession: URLSession) async throws -> PluralKitMessage {
+        if let message = message {
+            return message
+        }
+        
+        guard let url = URL(string: "https://api.pluralkit.me/v2/messages/\(messageID)") else {
+            throw PluralKitError.badURL
+        }
+        let (data, _) = try await urlSession.data(from: url)
+        message = try JSONDecoder().decode(PluralKitMessage.self, from: data)
+        system = message!.system
+        return message!
+    }
     
     mutating func getSystem(for authorID: String, urlSession: URLSession) async throws -> PluralKitSystem {
         if let system = system {
@@ -71,6 +91,11 @@ struct PluralKitCache {
         return system.name
     }
     
+    mutating func getSenderName(for messageID: String, with settings: PluralKitSettings, urlSession: URLSession) async throws -> String? {
+        let message = try await getMessage(for: messageID, urlSession: urlSession)
+        return message.member?.name
+    }
+    
     mutating func getFronterAvatar(for authorID: String, with settings: PluralKitSettings, urlSession: URLSession) async throws -> Data? {
         let fronters = try await getFronters(for: authorID, urlSession: urlSession)
         if fronters.members.count == 1 {
@@ -86,6 +111,16 @@ struct PluralKitCache {
     mutating func getSystemAvatar(for authorID: String, with settings: PluralKitSettings, urlSession: URLSession) async throws -> Data? {
         let system = try await getSystem(for: authorID, urlSession: urlSession)
         if let url = system.avatar_url.flatMap({ URL(string: $0) }) {
+            let response = try? await urlSession.data(from: url)
+            return response?.0
+        }
+        
+        return nil
+    }
+    
+    mutating func getSenderAvatar(for messageID: String, with settings: PluralKitSettings, urlSession: URLSession) async throws -> Data? {
+        let message = try await getMessage(for: messageID, urlSession: urlSession)
+        if let url = message.member?.avatar_url.flatMap({ URL(string: $0) }) {
             let response = try? await urlSession.data(from: url)
             return response?.0
         }
