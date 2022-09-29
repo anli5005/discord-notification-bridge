@@ -94,9 +94,7 @@ struct UserSettingsView: View {
                                             })!
                                             self.user!.settings.nameStyles[index] = .custom(name: newValue)
                                         })
-                                        #if os(iOS)
                                         .navigationBarTitle("Custom")
-                                        #endif
                                     } label: {
                                         HStack {
                                             Text(style.description)
@@ -129,11 +127,9 @@ struct UserSettingsView: View {
                             Toggle("Show Discriminator", isOn: userBinding.settings.showDiscriminator.boolBinding)
                         }
                     }
-                    #if os(iOS)
                     .navigationTitle("Display Name As").toolbar {
                         EditButton()
                     }
-                    #endif
                 } label: {
                     HStack {
                         Text("Display Name As")
@@ -149,11 +145,9 @@ struct UserSettingsView: View {
                             self.user?.settings.avatarStyles.move(fromOffsets: source, toOffset: destination)
                         }
                     }
-                    #if os(iOS)
                     .navigationTitle("Display Avatar As").toolbar {
                         EditButton()
                     }
-                    #endif
                 } label: {
                     HStack {
                         Text("Display Avatar As")
@@ -173,7 +167,6 @@ struct UserSettingsView: View {
                         }
                     }.lineLimit(1)
                 }
-                #if os(iOS)
                 Button {
                     showingContactPicker = true
                 } label: {
@@ -199,7 +192,6 @@ struct UserSettingsView: View {
                         Text("Remove Associated Contact").foregroundColor(.red)
                     }
                 }
-                #endif
             }
             
             Section("PluralKit") {

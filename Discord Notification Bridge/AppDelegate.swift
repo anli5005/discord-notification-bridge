@@ -5,14 +5,7 @@
 //  Created by Anthony Li on 12/25/21.
 //
 
-#if os(iOS)
 import UIKit
-#endif
-
-#if os(macOS)
-import Cocoa
-#endif
-
 import UserNotifications
 import SwiftUI
 
@@ -20,9 +13,29 @@ class AppDelegate: NSObject, UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification) async -> UNNotificationPresentationOptions {
         return [.banner, .sound]
     }
+    
+    @MainActor func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse) async {
+        guard let str = response.notification.request.content.userInfo["data"] as? String, let data = str.data(using: .utf8), let message = try? JSONDecoder().decode(Message.self, from: data) else {
+            return
+        }
+        
+        var discordURL = URL(string: "discord://-/channels")!
+        discordURL.append(path: message.guild_id ?? "@me")
+        discordURL.append(path: message.channel_id)
+        discordURL.append(path: message.id)
+        
+        await UIApplication.shared.open(discordURL)
+        
+        #if targetEnvironment(macCatalyst)
+        UIApplication.shared.openSessions.first.map { (session: UISceneSession) in
+            let options = UIWindowSceneDestructionRequestOptions()
+            options.windowDismissalAnimation = .standard
+            UIApplication.shared.requestSceneSessionDestruction(session, options: options)
+        }
+        #endif
+    }
 }
 
-#if os(iOS)
 extension AppDelegate: UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         application.registerForRemoteNotifications()
@@ -31,6 +44,7 @@ extension AppDelegate: UIApplicationDelegate {
             print(a)
             print(b)
         })
+        
         return true
     }
     
@@ -42,25 +56,6 @@ extension AppDelegate: UIApplicationDelegate {
         print(error)
     }
 }
-#endif
-
-#if os(macOS)
-extension AppDelegate: NSApplicationDelegate {
-    func applicationDidFinishLaunching(_ notification: Notification) {
-        NSApplication.shared.registerForRemoteNotifications()
-        UNUserNotificationCenter.current().delegate = self
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound], completionHandler: { _, _ in })
-    }
-    
-    func application(_ application: NSApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        Context.shared.token = deviceToken
-    }
-    
-    func application(_ application: NSApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
-        print(error)
-    }
-}
-#endif
 
 class Context: ObservableObject {
     static var shared = Context()
