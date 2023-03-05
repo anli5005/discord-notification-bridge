@@ -55,28 +55,29 @@ struct UsersView: View {
     
     var body: some View {
         ScrollView {
-            LazyVStack {
-                LazyVGrid(columns: [GridItem(.adaptive(minimum: 100), alignment: .top)], spacing: 16) {
-                    ForEach(Array(userSettings).sorted(by: { $0.value.details.description.localizedCaseInsensitiveCompare($1.value.details.description) == .orderedAscending }), id: \.key) { user in
-                        NavigationLink(destination: UserSettingsView(userID: user.key, user: $userSettings[user.key])) {
-                            UserButton(user: user.value, avatar: avatars[user.key])
-                        }.onChange(of: userSettings[user.key]!) { settings in
-                            UserDatabase.default.writeSettings(settings, for: user.key)
-                        }.onAppear {
-                            Task.detached {
-                                if let avatar = user.value.details.avatar_id, await avatars[user.key] == nil {
-                                    if let data = AvatarCache.default?.getAvatarData(userID: user.key, avatarID: avatar), let image = getImage(data: data) {
-                                        await setAvatar(for: user.key, to: image)
-                                    }
+            LazyVGrid(columns: [GridItem(.adaptive(minimum: 100), alignment: .top)], spacing: 16) {
+                ForEach(Array(userSettings).sorted(by: { $0.value.details.description.localizedCaseInsensitiveCompare($1.value.details.description) == .orderedAscending }), id: \.key) { user in
+                    NavigationLink(destination: UserSettingsView(userID: user.key, user: $userSettings[user.key])) {
+                        UserButton(user: user.value, avatar: avatars[user.key])
+                    }.onChange(of: userSettings[user.key]!) { settings in
+                        UserDatabase.default.writeSettings(settings, for: user.key)
+                    }.onAppear {
+                        Task.detached {
+                            if let avatar = user.value.details.avatar_id, avatars[user.key] == nil {
+                                if let data = AvatarCache.default?.getAvatarData(userID: user.key, avatarID: avatar), let image = getImage(data: data) {
+                                    await setAvatar(for: user.key, to: image)
                                 }
                             }
                         }
                     }
-                }.padding()
-            }
-        }.refreshable {
+                }
+            }.padding()
+        }
+        #if !targetEnvironment(macCatalyst)
+        .refreshable {
             userSettings = UserDatabase.default.readUsers()
         }
+        #endif
         .navigationBarTitle("Users")
     }
 }
@@ -85,7 +86,7 @@ struct ContentView: View {
     @ObservedObject var context = Context.shared
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             List {
                 NavigationLink("Users") {
                     UsersView()
@@ -95,7 +96,6 @@ struct ContentView: View {
                 }.disabled(context.token == nil)
             }.navigationTitle(Text("Discord Bridge"))
         }
-        .navigationViewStyle(StackNavigationViewStyle())
     }
 }
 
